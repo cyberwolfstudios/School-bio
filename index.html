@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>You got rickrolled by cyberwolf!</title>
+    <title>You got rickrolled by Cyberwolf!</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
-        iframe { width: 100%; height: 100%; border: none; }
+        video { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
 <body>
-    <iframe src="https://youtube-nocookie.com" allow="autoplay"></iframe>
+    <video autoplay muted loop playsinline>
+        <source src="https://archive.org" type="video/mp4">
+    </video>
+    <script>
+        document.body.addEventListener('click', function() {
+            var video = document.querySelector('video');
+            video.muted = false;
+        });
+    </script>
 </body>
 </html>
