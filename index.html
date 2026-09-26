@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>You got rickrolled by Cyberwolf!</title>
+    <title>Schoology Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=none">
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; font-family: Roboto, helvetica, arial, sans-serif; }
-        video { width: 100vw; height: 100vh; object-fit: cover; display: none; position: absolute; top: 0; left: 0; background-color: #000; }
+        
+        /* Video Container */
+        .video-wrapper { position: relative; width: 100vw; height: 100vh; display: none; }
+        video { width: 100%; height: 100%; object-fit: cover; background-color: #000; }
+        
+        /* The On-Screen Text Overlay */
+        .text-overlay { 
+            position: absolute; 
+            top: 10%; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: rgba(0, 0, 0, 0.75); 
+            color: #fff; 
+            padding: 16px 32px; 
+            font-size: 24px; 
+            font-weight: bold; 
+            border-radius: 8px; 
+            border: 2px solid #ff0055;
+            text-align: center; 
+            z-index: 10; 
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.03); border-color: #00ffcc; }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+        
+        /* Captcha Gate layout */
         .captcha-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: flex; align-items: center; justify-content: center; z-index: 100; }
         .captcha-box { width: 300px; height: 74px; background: #f9f9f9; border: 1px solid #d3d3d3; border-radius: 3px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px 0 14px; box-shadow: 0 0 4px rgba(0,0,0,0.08); }
         .captcha-left { display: flex; align-items: center; }
@@ -20,6 +51,7 @@
 </head>
 <body>
 
+    <!-- CAPTCHA Container -->
     <div class="captcha-container" id="launcher">
         <div class="captcha-box">
             <div class="captcha-left">
@@ -35,10 +67,14 @@
         </div>
     </div>
 
-    <video id="prankVideo" playsinline loop preload="auto">
-        <source src="video.mp4" type="video/mp4">
-        <source src="https://archive.org" type="video/mp4">
-    </video>
+    <!-- Video Stage and Content Overlay -->
+    <div class="video-wrapper" id="stage">
+        <div class="text-overlay">You got rickrolled by Cyberwolf!</div>
+        <video id="prankVideo" playsinline loop preload="auto">
+            <source src="video.mp4" type="video/mp4">
+            <source src="https://archive.org" type="video/mp4">
+        </video>
+    </div>
 
     <script>
         function triggerPrank() {
@@ -47,16 +83,12 @@
             
             setTimeout(function() {
                 document.getElementById('launcher').style.display = 'none';
+                document.getElementById('stage').style.display = 'block';
+                
                 var video = document.getElementById('prankVideo');
-                
-                video.style.display = 'block';
                 video.muted = false;
-                
                 video.load();
                 video.play();
-                
-                // Forces the browser tab name to remain locked on your title
-                document.title = "You got rickrolled by Cyberwolf!";
             }, 350);
         }
     </script>
